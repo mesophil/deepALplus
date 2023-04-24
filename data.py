@@ -235,6 +235,46 @@ def get_BreakHis(handler, args_task):
     Y_te = torch.from_numpy(np.array(Y_te))
     return Data(X_tr, Y_tr, X_te, Y_te, handler, args_task)
 
+def get_NCT(handler, args_task):
+    # download data from https://www.kaggle.com/datasets/ambarish/breakhis and unzip it in data/BreakHis/
+    data_dir = './data/NCT'
+    data = datasets.ImageFolder(root = data_dir, transform = None).imgs
+    train_ratio = 0.7
+    test_ratio = 0.3
+    data_idx = list(range(len(data)))
+    random.shuffle(data_idx)
+    train_idx = data_idx[:int(len(data)*train_ratio)]
+    test_idx = data_idx[int(len(data)*train_ratio):]
+    X_tr = [np.array(Image.open(data[i][0])) for i in train_idx]
+    Y_tr = [data[i][1] for i in train_idx]
+    X_te = [np.array(Image.open(data[i][0])) for i in test_idx]
+    Y_te = [data[i][1] for i in test_idx]
+    X_tr = np.array(X_tr, dtype=object)
+    X_te = np.array(X_te, dtype=object)
+    Y_tr = torch.from_numpy(np.array(Y_tr))
+    Y_te = torch.from_numpy(np.array(Y_te))
+    return Data(X_tr, Y_tr, X_te, Y_te, handler, args_task)
+
+def get_LC25000(handler, args_task):
+    # download data from https://www.kaggle.com/datasets/ambarish/breakhis and unzip it in data/BreakHis/
+    data_dir = './data/LC25000'
+    data = datasets.ImageFolder(root = data_dir, transform = None).imgs
+    train_ratio = 0.7
+    test_ratio = 0.3
+    data_idx = list(range(len(data)))
+    random.shuffle(data_idx)
+    train_idx = data_idx[:int(len(data)*train_ratio)]
+    test_idx = data_idx[int(len(data)*train_ratio):]
+    X_tr = [np.array(Image.open(data[i][0])) for i in train_idx]
+    Y_tr = [data[i][1] for i in train_idx]
+    X_te = [np.array(Image.open(data[i][0])) for i in test_idx]
+    Y_te = [data[i][1] for i in test_idx]
+    X_tr = np.array(X_tr, dtype=object)
+    X_te = np.array(X_te, dtype=object)
+    Y_tr = torch.from_numpy(np.array(Y_tr))
+    Y_te = torch.from_numpy(np.array(Y_te))
+    return Data(X_tr, Y_tr, X_te, Y_te, handler, args_task)
+
 def get_PneumoniaMNIST(handler, args_task):
     # download data from https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia and unzip it in data/PhwumniaMNIST/
     import cv2
